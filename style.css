@@ -1,6 +1,9 @@
 /* Geral ====================================== */
 :root{
     --dark-blue: #363f5f;
+    --dark-green: #49aa26;
+    --light-green: #3dd705;
+    --red: #e92929;
 }
 
 * {
@@ -47,17 +50,47 @@ h2{
 
 /* Links and Buttons ====================================== */
 a{
-    color: #49aa26;
+    color: var(--dark-green);
     text-decoration: none;
 }
 
 a:hover{
-    color: #3dd705;
+    color: var(--light-green);
+}
+
+button{
+    width: 100%;
+    height: 50px;
+    border: none;
+    color: white;
+    background: var(--dark-green);
+    padding: 0;
+    border-radius: 0.2rem;
+    cursor: pointer;
+}
+
+button:hover{
+    background: var(--light-green);
 }
 
 .button.new{
     display: inline-block;
     margin-bottom: 0.8rem;
+}
+
+.button.cancel{
+    color: var(--red);
+    border: 2px var(--red) solid;
+    border-radius: 0.2rem;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.6;
+}
+
+.button.cancel:hover{
+    opacity: 1;
 }
 
 
@@ -110,7 +143,7 @@ header{
 }
 
 .card.total{
-    background: #49aa26;
+    background: var(--dark-green);
     color: white;
 }
 
@@ -167,6 +200,75 @@ td.income{
 
 td.expense{
     color: #e92929;
+}
+
+
+/* Modal ===================================== */
+.modal-overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+
+    z-index: 999;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal{
+    background: #f0f2f5;
+    padding: 2.4rem;
+    position: relative;
+    max-width: 500px;
+    width: 90%;
+
+    position: relative;
+    z-index: 1;
+}
+
+
+/* Form ===================================== */
+#form{
+    max-width: 500px;
+}
+
+#form h2 {
+    margin-top: 0;
+}
+
+#form form input{
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0.8rem;
+    width: 100%;
+}
+
+.input-group{
+    margin-top: 0.8rem;
+}
+
+.input-group small{
+    opacity: 0.4;
+}
+
+.input-group.actions{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-group.actions .button,
+.input-group.actions button {
+    width: 48%;
 }
 
 
