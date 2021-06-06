@@ -5,19 +5,16 @@ const modalChange = () => {
 
 const transactions = [
     {
-        id: 1,
         description: 'Luz',
         amount: -50000,
         date: '23/01/2021'
     },
     {
-        id: 2,
         description: 'Criação de Website',
         amount: 500000,
         date: '23/01/2021'
     },
     {
-        id: 3,
         description: 'Internet',
         amount: -20000,
         date: '23/01/2021'
@@ -25,10 +22,24 @@ const transactions = [
 ]
 
 const Transaction = {
+    all: transactions,
+
+    add(transaction) {
+        Transaction.all.push(transaction);
+
+        App.reload();
+    },
+
+    remove(index) {
+        Transaction.all.splice(index, 1);
+
+        App.reload();
+    },
+
     incomes() {
         let income = 0;
 
-        transactions.forEach(transaction => {
+        Transaction.all.forEach(transaction => {
             if (transaction.amount > 0){
                 income += transaction.amount;
             }
@@ -36,11 +47,10 @@ const Transaction = {
 
         return income;
     },
-
     expenses() {
         let expense = 0;
 
-        transactions.forEach(transaction => {
+        Transaction.all.forEach(transaction => {
             if (transaction.amount < 0){
                 expense += transaction.amount;
             }
@@ -48,7 +58,6 @@ const Transaction = {
 
         return expense;
     },
-
     total(){
         return Transaction.incomes() + Transaction.expenses();
     }
@@ -63,7 +72,6 @@ const DOM = {
 
         DOM.transactionContainer.appendChild(tr);
     },
-
     innerHTMLTransaction(transaction) {
         const CSSclass = transaction.amount > 0 ? "income" : "expense";
 
@@ -74,15 +82,16 @@ const DOM = {
             <td class="${CSSclass}">${amount}</td>
             <td class="date">${transaction.date}</td>
             <td><img src="./assets/minus.svg" alt="remover transação"></td>
-        `
-
+        `;
         return html;
     },
-
     updateBalance(){
         document.querySelector('[data-display-income]').innerHTML = Utils.formatCurrency(Transaction.incomes());
         document.querySelector('[data-display-expense]').innerHTML = Utils.formatCurrency(Transaction.expenses());
         document.querySelector('[data-display-total]').innerHTML = Utils.formatCurrency(Transaction.total());
+    },
+    clearTransactions() {
+        DOM.transactionContainer.innerHTML = "";
     }
 }
 
@@ -95,12 +104,33 @@ const Utils = {
             style: "currency",
             currency: "BRL"
         })
-
         return signal + value;
     }
 }
 
-transactions.forEach(transacao => DOM.addTransaction(transacao));
-DOM.updateBalance();
+const Form = {
+    submit(event) {
+        event.preventDefault();
+    }
+}
 
-// 1:33:00
+const App = {
+    init(){
+        Transaction.all.forEach(transacao => DOM.addTransaction(transacao));
+        DOM.updateBalance();
+    },
+    reload() {
+        DOM.clearTransactions();
+        App.init();
+    }
+}
+
+App.init();
+
+Transaction.add({
+    description: 'PC Gamer',
+    amount: -500000,
+    date: '23/01/2021'
+})
+
+//2:02:00
