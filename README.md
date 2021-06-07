@@ -1,3 +1,3 @@
-# Maratona Discover da Rocketseat 🚀
+# Maratona 1 Discover da Rocketseat 🚀
 Disponível em:
 https://app.rocketseat.com.br/node/maratona-discover-edicao-01
